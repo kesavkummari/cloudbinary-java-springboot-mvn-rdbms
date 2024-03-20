@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap4.5.2.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Navbar placeholder -->
+<div id="navbar-placeholder"></div>
+
+<div class="container mt-5 card">
+    <div class="card-header">
+        <button id="backBtn" style="color: black;" class="btn btn-link"><i class="fas fa-arrow-left"></i></button>&nbsp; &nbsp;&nbsp;&nbsp;<h1>Registration</h1>
+    </div>
+    <form class="card-body">
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select class="form-control" id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="designation">Designation:</label>
+            <input type="text" class="form-control" id="designation" autocomplete="username" placeholder="Enter your designation">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        <button type="submit" onclick="submitFormReg()" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- Script to handle back button -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Load the navbar content using JavaScript
+  document.addEventListener("DOMContentLoaded", function() {
+      fetch("index.html")
+          .then(response => response.text())
+          .then(data => {
+              document.getElementById("navbar-placeholder").innerHTML = data;
+          });
+  });
+  document.getElementById("backBtn").addEventListener("click", function() {
+      window.history.back();
+  });
+
+
+ function submitFormReg() {
+        console.log("Form Data:",document.getElementById("name").value,"LLLLLL",document.getElementById("password").value); // Check if form data is captured correctly
+
+        var formData = {
+            name: document.getElementById("name").value,
+            password: document.getElementById("password").value,
+            gender:document.getElementById("gender").value,
+            desigantion:document.getElementById("designation").value
+        };
+        console.log("Form Data:", formData); // Check if form data is captured correctly
+
+        // Send form data as JSON via AJAX
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:2000/api/register",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            success: function(response) {
+                // Handle success response
+                console.log("Response:", response);
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error("Error:", xhr.responseText);
+            }
+        });
+    }
+
+
+</script>
+
+<!-- Bootstrap JS -->
+<script src="bootstrap.min.js"></script>
+
+</body>
+</html>

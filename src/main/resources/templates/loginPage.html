@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Back Button</title>
+    <link href="bootstrap4.5.2.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <button id="backBtn" style="color: black;" class="btn btn-link"><i class="fas fa-arrow-left"></i></button>&nbsp; &nbsp;&nbsp;&nbsp;<h1>USER LOGIN</h1>
+        </div>
+        <div class="card-body">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">LOGIN</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function submitForm() {
+        var formData = {
+            name: document.getElementById("name").value,
+            passWord: document.getElementById("password").value
+        };
+        console.log("Form Data:", formData); // Check if form data is captured correctly
+
+        // Send form data as JSON via AJAX
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:2000/api/check",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            success: function(response) {
+                // Handle success response
+                console.log("Response:", response);
+                if(response=="User not found"){
+                alert("User not found");
+
+                 document.addEventListener("DOMContentLoaded", function() {
+        fetch("home.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+            });
+
+                }else{
+                alert("user is present and existed");
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error("Error:", xhr.responseText);
+            }
+        });
+    }
+
+    document.getElementById("backBtn").addEventListener("click", function() {
+        window.history.back();
+    });
+
+    // Load the navbar content using JavaScript
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("index.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+            });
+    });
+</script>
+</body>
+</html>

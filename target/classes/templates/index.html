@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-page Layout</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles here */
+
+        .pas{
+       padding: 5px;
+
+        }
+.bg-color-btnShape{
+background-color: #72a6df66;
+border-radius: 10px;
+}
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+
+    <a class="navbar-brand" href="#"><h1>KING</h1></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto"> <!-- Added ml-auto class here -->
+            <li class="nav-item active pas">
+                <a class="nav-link bg-color-btnShape text-light" href="home.html" id="homeBtn">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item pas">
+                <a class="nav-link bg-color-btnShape text-light" href="loginPage.html" id="loginBtn">Login</a>
+            </li>
+            <li class="nav-item pas">
+                <a class="nav-link bg-color-btnShape  text-light" href="registration.html" id="registerBtn">Registration</a>
+            </li>
+            <li class="nav-item pas">
+                <a class="nav-link bg-color-btnShape  text-light" href="listOfUsers.html" id="listofData">List of Users</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+<div id="content" class="container mt-5">
+    <!-- Content will be loaded dynamically here -->
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initial content
+        $('#content').load('home.html');
+
+        // Load home page when home button is clicked
+        $('#homeBtn').click(function(e) {
+            e.preventDefault();
+            $('#content').load('home.html');
+        });
+
+        // Load login page when login button is clicked
+        $('#loginBtn').click(function(e) {
+            e.preventDefault();
+            $('#content').load('login.html');
+        });
+
+        // Load registration page when registration button is clicked
+        $('#registerBtn').click(function(e) {
+            e.preventDefault();
+            $('#content').load('registration.html');
+        });
+           $('#listofData').click(function(e) {
+            e.preventDefault();
+            $('#content').load('registration.html');
+        });
+    });
+</script>
+</body>
+</html>
