@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+<div class="container mt-5 card">
+    <div class="card-header">
+        <button id="backBtn" style="color: black;" class="btn btn-link"><i class="fas fa-arrow-left"></i></button>&nbsp; &nbsp;&nbsp;&nbsp;<h1>USER LOGIN</h1>
+    </div>
+    <h1>Welcome to Your Website!</h1>
+    <p>This is the home page of your website. You can add any content you want here.</p>
+    <p>Feel free to explore the navigation menu to access other pages.</p>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+
+
+<script>
+
+    document.getElementById("backBtn").addEventListener("click", function() {
+        window.history.back();
+    });
+
+    // Load the navbar content using JavaScript
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("index.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+            });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

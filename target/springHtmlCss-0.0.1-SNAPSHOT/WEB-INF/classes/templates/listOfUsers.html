@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for styling */
+        .table-header {
+          background-color: #f8f9fa;
+        }
+        .table-header th {
+          border: none;
+        }
+        .table-header th:first-child {
+          border-top-left-radius: 10px;
+        }
+        .table-header th:last-child {
+          border-top-right-radius: 10px;
+        }
+        .table tbody tr:hover {
+          background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">User List</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-header">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>PassWord</th>
+                <th>Designation</th>
+                <th>Gender</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody id="user-table-body">
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional, if you need JavaScript features) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+     fetch("index.html")
+         .then(response => response.text())
+         .then(data => {
+             document.getElementById("navbar-placeholder").innerHTML = data;
+         });
+ });
+   $(document).ready(function() {
+     // Function to fetch user data via AJAX
+     function fetchUserData() {
+       $.ajax({
+         url: 'http://localhost:2000/api/data', // Replace with your API endpoint
+         type: 'GET',
+         success: function(data) {
+           // Clear existing table rows
+           $('#user-table-body').empty();
+
+           // Append new rows with fetched data  {
+
+           data.forEach(function(user) {
+             $('#user-table-body').append(`
+               <tr>
+                 <td>${user.id}</td>
+                 <td>${user.name}</td>
+                 <td>${user.passWord}</td>
+                 <td>${user.designation}</td>
+                 <td>${user.gender}</td>
+              <td><button type="button" class="btn btn-danger delete-btn">delete</button></td>
+               </tr>
+             `);
+
+           });
+         },
+         error: function(xhr, status, error) {
+           console.error('Error fetching user data:', error);
+         }
+       });
+     }
+
+     // Call fetchUserData function on page load
+     fetchUserData();
+
+
+      $('#user-table-body').on('click', '.delete-btn', function() {
+    // Get the user ID from the corresponding table row
+    var userId = $(this).closest('tr').find('td:first').text();
+
+    // Call a delete function or perform any desired action
+    deleteUser(userId);
+});
+
+function deleteUser(userId) {
+    console.log('Deleting user with ID:', userId);
+
+    $.ajax({
+        url: "http://localhost:2000/api/delete/" + userId,
+        type: 'DELETE', // Use 'DELETE' method for deleting data
+        success: function(response) {
+            // Handle success response
+            console.log('Data deleted successfully:', response);
+             fetchUserData();
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+            console.error('Error deleting data:', error);
+        }
+    });
+
+}
+
+
+
+   });
+  </script>
+</body>
+</html>
